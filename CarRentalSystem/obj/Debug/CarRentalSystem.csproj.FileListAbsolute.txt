@@ -26,3 +26,31 @@ D:\OneDrive\Dokumenty\Visual Studio 2022\Source\Repos\CarRentalSystem\CarRentalS
 D:\OneDrive\Dokumenty\Visual Studio 2022\Source\Repos\CarRentalSystem\CarRentalSystem\obj\Debug\EmployeeWindow.g.cs
 D:\OneDrive\Dokumenty\Visual Studio 2022\Source\Repos\CarRentalSystem\CarRentalSystem\obj\Debug\CustomerWindow.baml
 D:\OneDrive\Dokumenty\Visual Studio 2022\Source\Repos\CarRentalSystem\CarRentalSystem\obj\Debug\EmployeeWindow.baml
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\CarRentalSystem.csproj.AssemblyReference.cache
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\CustomerWindow.g.cs
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\LoginWindow.g.cs
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\App.g.cs
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\CarRentalSystem_MarkupCompile.cache
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\CarRentalSystem_MarkupCompile.lref
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\CarRentalSystem.exe
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\CarRentalSystem.pdb
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\EmployeeWindow.g.cs
+C:\CarRentalSystem\CarRentalSystem\bin\Debug\CarRentalSystem.exe.config
+C:\CarRentalSystem\CarRentalSystem\bin\Debug\CarRentalSystem.exe
+C:\CarRentalSystem\CarRentalSystem\bin\Debug\CarRentalSystem.pdb
+C:\CarRentalSystem\CarRentalSystem\bin\Debug\EntityFramework.dll
+C:\CarRentalSystem\CarRentalSystem\bin\Debug\EntityFramework.SqlServer.dll
+C:\CarRentalSystem\CarRentalSystem\bin\Debug\System.Data.SQLite.dll
+C:\CarRentalSystem\CarRentalSystem\bin\Debug\System.Data.SQLite.EF6.dll
+C:\CarRentalSystem\CarRentalSystem\bin\Debug\System.Data.SQLite.Linq.dll
+C:\CarRentalSystem\CarRentalSystem\bin\Debug\EntityFramework.xml
+C:\CarRentalSystem\CarRentalSystem\bin\Debug\EntityFramework.SqlServer.xml
+C:\CarRentalSystem\CarRentalSystem\bin\Debug\System.Data.SQLite.xml
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\CustomerWindow.baml
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\EmployeeWindow.baml
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\LoginWindow.baml
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\CarRentalSystem.g.resources
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\CarRentalSystem.Properties.Resources.resources
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\CarRentalSystem.csproj.GenerateResource.cache
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\CarRentalSystem.csproj.CoreCompileInputs.cache
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\CarRenta.52418D6E.Up2Date

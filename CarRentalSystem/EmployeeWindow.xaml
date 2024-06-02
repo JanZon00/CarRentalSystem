@@ -6,13 +6,26 @@
         xmlns:local="clr-namespace:CarRentalSystem"
         mc:Ignorable="d"
         Title="Car-Rental - Okno pracownika" Height="600" Width="800" MinWidth="800" MinHeight="600" ResizeMode="CanMinimize">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Label Grid.Row="1" x:Name="HelloLabel" Content="Witaj!" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <DockPanel Background="#FF163EBB"/>
-        <Label x:Name="TitleLabel" Content="Menu pracownika" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontStyle="Italic" FontWeight="Bold" Foreground="White"/>
-    </Grid>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Label x:Name="HelloLabel" Content="Witaj!" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22" Margin="0,20,0,0"/>
+		<DockPanel Grid.Row="1" Background="#FF163EBB">
+			<Label x:Name="TitleLabel" Content="Menu pracownika" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontStyle="Italic" FontWeight="Bold" Foreground="White"/>
+		</DockPanel>
+		<StackPanel Grid.Row="2" Margin="20">
+			<Label Content="Dodaj Nowy Samochód" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+			<TextBox x:Name="BrandTextBox" Text="Marka" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+			<TextBox x:Name="ModelTextBox" Text="Model" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+			<TextBox x:Name="ProductionYearTextBox" Text="Rok produkcji" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+			<TextBox x:Name="RegistrationNumberTextBox" Text="Numer rejestracyjny" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+			<TextBox x:Name="ColorTextBox" Text="Kolor" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+			<TextBox x:Name="CarTypeTextBox" Text="Typ samochodu" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+			<TextBox x:Name="PricePerDayTextBox" Text="Cena za dzień" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+			<Button Content="Dodaj samochód" Click="AddCarButton_Click" Margin="0,10"/>
+		</StackPanel>
+	</Grid>
 </Window>

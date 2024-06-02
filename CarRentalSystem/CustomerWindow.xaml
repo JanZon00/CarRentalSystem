@@ -6,13 +6,17 @@
         xmlns:local="clr-namespace:CarRentalSystem"
         mc:Ignorable="d"
         Title="Car-Rental - Okno klienta" Height="600" Width="800" MinWidth="800" MinHeight="600" ResizeMode="CanMinimize">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Label Grid.Row="1" x:Name="HelloLabel" Content="Witaj!" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <DockPanel Background="#FF163EBB"/>
-        <Label x:Name="TitleLabel" Content="Menu klienta" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontStyle="Italic" FontWeight="Bold" Foreground="White"/>
-    </Grid>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="100"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Label x:Name="HelloLabel" Content="Witaj!" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Top" FontSize="22"/>
+		<DockPanel Background="#FF163EBB"/>
+		<Label x:Name="TitleLabel" Content="Menu klienta" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontStyle="Italic" FontWeight="Bold" Foreground="White"/>
+
+		<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="20">
+			<StackPanel x:Name="CarsStackPanel"/>
+		</ScrollViewer>
+	</Grid>
 </Window>
