@@ -3,29 +3,63 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:CarRentalSystem"
         mc:Ignorable="d"
         Title="Car-Rental - Okno pracownika" Height="600" Width="800" MinWidth="800" MinHeight="600" ResizeMode="CanMinimize">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition/>
-		</Grid.RowDefinitions>
-		<Label x:Name="HelloLabel" Content="Witaj!" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22" Margin="0,20,0,0"/>
-		<DockPanel Grid.Row="1" Background="#FF163EBB">
-			<Label x:Name="TitleLabel" Content="Menu pracownika" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontStyle="Italic" FontWeight="Bold" Foreground="White"/>
-		</DockPanel>
-		<StackPanel Grid.Row="2" Margin="20">
-			<Label Content="Dodaj Nowy Samochód" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
-			<TextBox x:Name="BrandTextBox" Text="Marka" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
-			<TextBox x:Name="ModelTextBox" Text="Model" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
-			<TextBox x:Name="ProductionYearTextBox" Text="Rok produkcji" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
-			<TextBox x:Name="RegistrationNumberTextBox" Text="Numer rejestracyjny" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
-			<TextBox x:Name="ColorTextBox" Text="Kolor" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
-			<TextBox x:Name="CarTypeTextBox" Text="Typ samochodu" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
-			<TextBox x:Name="PricePerDayTextBox" Text="Cena za dzień" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
-			<Button Content="Dodaj samochód" Click="AddCarButton_Click" Margin="0,10"/>
-		</StackPanel>
-	</Grid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#FF163EBB">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" x:Name="HelloLabel" Content="Witaj!" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="10,0,0,0" Foreground="White"/>
+            <Label Grid.Column="1" x:Name="TitleLabel" Content="Menu" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontStyle="Italic" FontWeight="Bold" Foreground="White"/>
+            <Button Grid.Column="2" x:Name="LogoutButton" Content="Wyloguj" HorizontalAlignment="Right" VerticalAlignment="Center" Width="80" Height="50" Margin="0,0,10,0" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White" FontSize="18" Click="LogoutButton_Click"/>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel>
+                <Expander x:Name="addNewCarExpander" HorizontalAlignment="Stretch" Header="Dodaj nowy samochód">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10">
+                            <TextBox x:Name="BrandTextBox" Text="Marka" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <TextBox x:Name="ModelTextBox" Text="Model" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <TextBox x:Name="ProductionYearTextBox" Text="Rok produkcji" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <TextBox x:Name="RegistrationNumberTextBox" Text="Numer rejestracyjny" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <TextBox x:Name="ColorTextBox" Text="Kolor" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <TextBox x:Name="CarTypeTextBox" Text="Typ samochodu" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <TextBox x:Name="PricePerDayTextBox" Text="Cena za dzień" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <Button Content="Dodaj samochód" Click="AddCarButton_Click" Margin="0,10" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White"/>
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+                <Expander x:Name="addNewEmployeeExpander" HorizontalAlignment="Stretch" Header="Dodaj konto nowego pracownika">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10">
+                            <TextBox x:Name="EmailTextBox" Text="Email" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <PasswordBox x:Name="PasswordBox" Password="Password" Margin="0,5" GotFocus="PasswordBox_GotFocus" LostFocus="PasswordBox_LostFocus"/>
+                            <Separator Margin="0,5"/>
+                            <TextBox x:Name="FirstNameTextBox" Text="Imię" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <TextBox x:Name="LastNameTextBox" Text="Nazwisko" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <ComboBox x:Name="PositionComboBox" Margin="0,5" SelectedIndex="0">
+                                <ComboBoxItem Content="Manager"/>
+                                <ComboBoxItem Content="Mechanik"/>
+                            </ComboBox>
+                            <TextBox x:Name="AddressTextBox" Text="Adres" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <TextBox x:Name="PhoneTextBox" Text="Telefon" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <DatePicker x:Name="BirthDatePicker" Margin="0,5" DisplayDateEnd="{x:Static sys:DateTime.Now}"/>
+                            <Button x:Name="RegisterEmployeeButton" Content="Dodaj pracownika" Margin="0,10" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White" Click="RegisterEmployeeButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Window>

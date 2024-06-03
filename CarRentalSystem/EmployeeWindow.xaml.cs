@@ -11,6 +11,12 @@ namespace CarRentalSystem
         {
             InitializeComponent();
             HelloLabel.Content = "Witaj " + App.UserFullName + "!";
+            DatabaseQueries dbq = new DatabaseQueries();
+            if (dbq.GetEmployeePosition(App.UserId) == "mechanic")
+            {
+                addNewCarExpander.IsEnabled = false;
+                addNewEmployeeExpander.IsEnabled = false;
+            }
         }
 
         private void AddCarButton_Click(object sender, RoutedEventArgs e)
@@ -55,6 +61,26 @@ namespace CarRentalSystem
             }
         }
 
+        private void PasswordBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            PasswordBox passwordBox = sender as PasswordBox;
+            if (passwordBox != null && passwordBox.Password == GetPlaceholderText(passwordBox.Name))
+            {
+                passwordBox.Password = "";
+                passwordBox.Foreground = new SolidColorBrush(SystemColors.ControlTextColor);
+            }
+        }
+
+        private void PasswordBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            PasswordBox passwordBox = sender as PasswordBox;
+            if (passwordBox != null && string.IsNullOrWhiteSpace(passwordBox.Password))
+            {
+                passwordBox.Password = GetPlaceholderText(passwordBox.Name);
+                passwordBox.Foreground = new SolidColorBrush(SystemColors.GrayTextColor);
+            }
+        }
+
         private string GetPlaceholderText(string textBoxName)
         {
             switch (textBoxName)
@@ -66,7 +92,63 @@ namespace CarRentalSystem
                 case "ColorTextBox": return "Kolor";
                 case "CarTypeTextBox": return "Typ samochodu";
                 case "PricePerDayTextBox": return "Cena za dzień";
+                case "FirstNameTextBox": return "Imię";
+                case "LastNameTextBox": return "Nazwisko";
+                case "AddressTextBox": return "Adres";
+                case "PhoneTextBox": return "Telefon";
+                case "EmailTextBox": return "Email";
+                case "PasswordBox": return "Password";
                 default: return "";
+            }
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.UserId = -1;
+            App.UserFullName = "";
+            this.Close();
+        }
+
+        private void RegisterEmployeeButton_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime birthDate = BirthDatePicker.SelectedDate.HasValue ? BirthDatePicker.SelectedDate.Value : DateTime.MinValue; 
+            
+            string[] data = new string[]
+            {
+                EmailTextBox.Text,
+                FirstNameTextBox.Text,
+                LastNameTextBox.Text,
+                AddressTextBox.Text,
+                PhoneTextBox.Text,
+                PasswordBox.Password,
+                PositionComboBox.Text,
+                birthDate.ToString("yyyy-MM-dd")
+            };
+
+            switch (data[6])
+            {
+                case "Manager":
+                    data[6] = "manager";
+                    break;
+                case "Mechanik":
+                    data[6] = "mechanic";
+                    break;
+            }
+
+            DatabaseQueries dbq = new DatabaseQueries();
+            int result = dbq.EmployeeRegister(data);
+
+            if (result > 0)
+            {
+                MessageBox.Show("Zarejestrowano pomyślnie!");
+            }
+            else if (result < 0)
+            {
+                MessageBox.Show("Email już zarejestrowany!");
+            }
+            else
+            {
+                MessageBox.Show("Błąd w danych. Sprawdź wprowadzone wartości.");
             }
         }
     }

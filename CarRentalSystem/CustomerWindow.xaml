@@ -7,16 +7,33 @@
         mc:Ignorable="d"
         Title="Car-Rental - Okno klienta" Height="600" Width="800" MinWidth="800" MinHeight="600" ResizeMode="CanMinimize">
 	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="100"/>
-			<RowDefinition/>
-		</Grid.RowDefinitions>
-		<Label x:Name="HelloLabel" Content="Witaj!" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Top" FontSize="22"/>
-		<DockPanel Background="#FF163EBB"/>
-		<Label x:Name="TitleLabel" Content="Menu klienta" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontStyle="Italic" FontWeight="Bold" Foreground="White"/>
-
-		<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="20">
-			<StackPanel x:Name="CarsStackPanel"/>
-		</ScrollViewer>
-	</Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#FF163EBB">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" x:Name="HelloLabel" Content="Witaj!" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="10,0,0,0" Foreground="White"/>
+            <Label Grid.Column="1" x:Name="TitleLabel" Content="Menu" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontStyle="Italic" FontWeight="Bold" Foreground="White"/>
+            <Button Grid.Column="2" x:Name="LogoutButton" Content="Wyloguj" HorizontalAlignment="Right" VerticalAlignment="Center" Width="80" Height="50" Margin="0,0,10,0" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White" FontSize="18" Click="LogoutButton_Click"/>
+        </Grid>
+        <ScrollViewer Grid.Row="1" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel>
+                <Expander x:Name="rentedCarsExpander" HorizontalAlignment="Stretch" Header="Lista wypożyczonych samochodów" IsExpanded="True">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10" x:Name="RentedCarsStackPanel"/>
+                    </Grid>
+                </Expander>
+                <Expander x:Name="availableCarsExpander" HorizontalAlignment="Stretch" Header="Lista dostępnych samochodów" IsExpanded="True">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10" x:Name="CarsStackPanel"/>
+                    </Grid>
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Window>
