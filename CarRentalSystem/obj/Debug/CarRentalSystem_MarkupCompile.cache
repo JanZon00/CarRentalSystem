@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\OneDrive\Pulpit\CarRentalSystem-main\CarRentalSystem-main\CarRentalSystem\obj\Debug\
+C:\CarRentalSystem\CarRentalSystem\obj\Debug\
 CarRentalSystem
 none
 false
 DEBUG;TRACE
-D:\OneDrive\Pulpit\CarRentalSystem-main\CarRentalSystem-main\CarRentalSystem\App.xaml
+C:\CarRentalSystem\CarRentalSystem\App.xaml
 3-1503168147
 
 8-1185196
-19-37987223
+19-1851134581
 CustomerWindow.xaml;EmployeeWindow.xaml;LoginWindow.xaml;
 
 False

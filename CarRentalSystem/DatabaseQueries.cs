@@ -1,5 +1,8 @@
-﻿using System.Data.SQLite;
+﻿using System;
+using System.Data.SQLite;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Windows;
 
 namespace CarRentalSystem
 {
@@ -195,13 +198,13 @@ namespace CarRentalSystem
                     while (reader.Read())
                     {
                         string[] car = new string[7];
-                        car[0] = reader.GetString(0);
-                        car[1] = reader.GetString(1);
-                        car[2] = reader.GetInt32(2).ToString();
-                        car[3] = reader.GetString(3);
-                        car[4] = reader.GetString(4);
-                        car[5] = reader.GetString(5);
-                        car[6] = reader.GetDecimal(6).ToString();
+                        car[0] = "Brand: " + reader.GetString(0);
+                        car[1] = "Model: " + reader.GetString(1);
+                        car[2] = "Production Year: " + reader.GetInt32(2).ToString();
+                        car[3] = "Registration Number: " + reader.GetString(3);
+                        car[4] = "Color: " + reader.GetString(4);
+                        car[5] = "Car Type: " + reader.GetString(5);
+                        car[6] = "Price per day: " + reader.GetDecimal(6).ToString() + "zł";
                         carsList.Add(car);
                     }
                 }
@@ -214,7 +217,7 @@ namespace CarRentalSystem
         {
             List<string[]> carsList = new List<string[]>();
 
-            string query = "SELECT * FROM cars WHERE rowid IN (SELECT car_id FROM rentals WHERE customer_id = @id AND return_date IS NULL)";
+            string query = "SELECT * FROM cars WHERE rowid IN (SELECT car_id FROM rentals WHERE customer_id = @id AND (return_date IS NULL OR return_date >= CURRENT_DATE))";
             using (SQLiteCommand command = new SQLiteCommand(query, App.Connection))
             {
                 command.Parameters.AddWithValue("@id", id);
@@ -223,13 +226,13 @@ namespace CarRentalSystem
                     while (reader.Read())
                     {
                         string[] car = new string[7];
-                        car[0] = reader.GetString(0);
-                        car[1] = reader.GetString(1);
-                        car[2] = reader.GetInt32(2).ToString();
-                        car[3] = reader.GetString(3);
-                        car[4] = reader.GetString(4);
-                        car[5] = reader.GetString(5);
-                        car[6] = reader.GetDecimal(6).ToString();
+                        car[0] = "Brand: " + reader.GetString(0);
+                        car[1] = "Model: " + reader.GetString(1);
+                        car[2] = "Production Year: " + reader.GetInt32(2).ToString();
+                        car[3] = "Registration Number: " + reader.GetString(3);
+                        car[4] = "Color: " + reader.GetString(4);
+                        car[5] = "Car Type: " + reader.GetString(5);
+                        car[6] = "Price per day: " + reader.GetDecimal(6).ToString() + "zł";
                         carsList.Add(car);
                     }
                 }
@@ -254,6 +257,30 @@ namespace CarRentalSystem
             }
 
             return "";
+        }
+
+        public bool RentCar(int customerId, int carId, DateTime returnDate)
+        {
+            string query = "INSERT INTO rentals (customer_id, car_id, rental_date, return_date, status) VALUES (@CustomerId, @CarId, @RentalDate, @ReturnDate, 'rented')";
+            using (SQLiteCommand command = new SQLiteCommand(query, App.Connection))
+            {
+                command.Parameters.AddWithValue("@CustomerId", customerId);
+                command.Parameters.AddWithValue("@CarId", carId);
+                command.Parameters.AddWithValue("@RentalDate", DateTime.Now);
+                command.Parameters.AddWithValue("@ReturnDate", returnDate);
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error renting car: {ex.Message}");
+                    Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
+                    return false;
+                }
+            }
         }
     }
 }
