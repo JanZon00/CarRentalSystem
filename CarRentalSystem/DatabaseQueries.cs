@@ -3,6 +3,7 @@ using System.Data.SQLite;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
+using System.Linq;
 
 namespace CarRentalSystem
 {
@@ -281,6 +282,73 @@ namespace CarRentalSystem
                     return false;
                 }
             }
+        }
+
+        public bool CancelReservation(int carId)
+        {
+            string query = "DELETE FROM rentals WHERE car_id = @CarId";
+            using (SQLiteCommand command = new SQLiteCommand(query, App.Connection))
+            {
+                command.Parameters.AddWithValue("@CarId", carId);
+
+                try
+                {
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error canceling reservation: {ex.Message}");
+                    Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
+                    return false;
+                }
+            }
+        }
+
+        public (string carName, bool isRented)[] GetAllCarNamesWithStatus()
+        {
+            List<(string carName, bool isRented)> carNamesWithStatus = new List<(string, bool)>();
+            Dictionary<string, int> carOrder = new Dictionary<string, int>();
+
+            string query = "SELECT rowid, brand, model FROM cars";
+            using (SQLiteCommand command = new SQLiteCommand(query, App.Connection))
+            {
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    int order = 0;
+                    while (reader.Read())
+                    {
+                        string carName = reader.GetString(1) + " " + reader.GetString(2);
+                        carNamesWithStatus.Add((carName, false));
+                        carOrder[carName] = order++;
+                    }
+                }
+            }
+
+            query = "SELECT c.brand, c.model FROM cars c WHERE c.rowid IN (SELECT r.car_id FROM rentals r WHERE r.return_date IS NULL OR r.return_date >= CURRENT_DATE)";
+            using (SQLiteCommand command = new SQLiteCommand(query, App.Connection))
+            {
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string carName = reader.GetString(0) + " " + reader.GetString(1);
+                        var existingCar = carNamesWithStatus.FirstOrDefault(x => x.carName == carName);
+                        if (existingCar != default)
+                        {
+                            carNamesWithStatus.Remove(existingCar);
+                            carNamesWithStatus.Add((carName, true));
+                        }
+                        else
+                        {
+                            carNamesWithStatus.Add((carName, true));
+                        }
+                    }
+                }
+            }
+
+            var sortedCarNamesWithStatus = carNamesWithStatus.OrderBy(x => carOrder[x.carName]).ToArray();
+            return sortedCarNamesWithStatus;
         }
     }
 }

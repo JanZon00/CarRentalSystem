@@ -108,8 +108,8 @@ namespace CarRentalSystem
                 if (success)
                 {
                     MessageBox.Show("Samochód został wypożyczony!");
-                    //CarsStackPanel.Children.Clear();
-                    //RentedCarsStackPanel.Children.Clear();
+                    CarsStackPanel.Children.Clear();
+                    RentedCarsStackPanel.Children.Clear();
                     LoadCars();
                 }
                 else

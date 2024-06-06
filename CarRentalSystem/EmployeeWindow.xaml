@@ -59,6 +59,8 @@
                         </StackPanel>
                     </Grid>
                 </Expander>
+                <ComboBox x:Name="CarComboBox" Margin="0,5" SelectedIndex="0"/>
+                <Button Content="Anuluj rezerwację" Click="CancelReservationButton_Click" Margin="0,5" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

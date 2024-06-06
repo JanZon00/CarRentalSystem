@@ -12,8 +12,21 @@ namespace CarRentalSystem
             InitializeComponent();
             HelloLabel.Content = "Witaj " + App.UserFullName + "!";
             DatabaseQueries dbq = new DatabaseQueries();
-            if (dbq.GetEmployeePosition(App.UserId) == "mechanic")
+            
+            (string carName, bool isRented)[] allCarNamesWithStatus = dbq.GetAllCarNamesWithStatus();
+            int counter = 1;
+            foreach (var carInfo in allCarNamesWithStatus)
             {
+                string carDisplayText = $"{counter}. {carInfo.carName}";
+                if (carInfo.isRented)
+                {
+                    carDisplayText += " (rented)";
+                }
+                CarComboBox.Items.Add(carDisplayText);
+                counter++;
+            }
+
+            if (dbq.GetEmployeePosition(App.UserId) == "mechanic"){
                 addNewCarExpander.IsEnabled = false;
                 addNewEmployeeExpander.IsEnabled = false;
             }
@@ -38,6 +51,61 @@ namespace CarRentalSystem
             else
             {
                 MessageBox.Show("Błąd w danych. Sprawdź wprowadzone wartości.");
+            }
+        }
+
+        private void CancelReservationButton_Click(object sender, RoutedEventArgs e)
+        {
+            string selectedCarText = CarComboBox.SelectedItem as string;
+            if (string.IsNullOrEmpty(selectedCarText))
+            {
+                MessageBox.Show("Wybierz samochód do anulowania rezerwacji.");
+                return;
+            }
+            string[] carInfoParts = selectedCarText.Split('.');
+            if (carInfoParts.Length < 2)
+            {
+                MessageBox.Show("Nieprawidłowy format danych samochodu.");
+                return;
+            }
+
+            if (int.TryParse(carInfoParts[0], out int carIndex))
+            {
+                int carId = carIndex;
+                DatabaseQueries dbQueries = new DatabaseQueries();
+                bool cancelSuccess = dbQueries.CancelReservation(carId);
+                if (cancelSuccess)
+                {
+                    MessageBox.Show("Rezerwacja została anulowana pomyślnie.");
+                    RefreshCarComboBox();
+                }
+                else
+                {
+                    MessageBox.Show("Nie udało się anulować rezerwacji.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nieprawidłowy numer samochodu.");
+            }
+        }
+
+        private void RefreshCarComboBox()
+        {
+            CarComboBox.Items.Clear();
+
+            DatabaseQueries dbq = new DatabaseQueries();
+            (string carName, bool isRented)[] allCarNamesWithStatus = dbq.GetAllCarNamesWithStatus();
+            int counter = 1;
+            foreach (var carInfo in allCarNamesWithStatus)
+            {
+                string carDisplayText = $"{counter}. {carInfo.carName}";
+                if (carInfo.isRented)
+                {
+                    carDisplayText += "(rented)";
+                }
+                CarComboBox.Items.Add(carDisplayText);
+                counter++;
             }
         }
 
