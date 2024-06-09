@@ -25,8 +25,8 @@ potencjalnych klientów, jak i część dla pracowników wypożyczalni.
 na swoje konto lub pozwala klientom takowe utworzyć. Aby się zalogować należy 
 w odpowiednie pola tekstowe z lewej strony okna wprowadzić e-mail oraz hasło, 
 a do rejestracji (po przeciwnej stronie) - poza już wymienionymi - imię, 
-nazwisko, numer telefonu, adres, numer karty kredytowej, data ważności karty, 
-numer CVV.
+nazwisko, numer telefonu, adres, data urodzenia, numer karty kredytowej, 
+data ważności karty, numer CVV.
 - Okno dla klientów - umożliwia klientom przegląd bazy aut wypożyczalni oraz 
 ewentualne dokonanie wynajmu. Okno podzielone zostało na 3 sekcje: lista 
 wypożyczonych aut, lista dostępnych aut (do wypożyczenia), lista niedostępnych 
@@ -37,7 +37,9 @@ daty końca wynajmu oraz potwierdzeniem wynajmu za wyświetloną cenę.
 składnikami systemu. Manager może dodawać nowe pojazdy, edytować dane 
 istniejących, usuwać pojazdy, tworzyć konta innych pracowników, edytować dane 
 kont innych pracowników, usuwać konta pracowników, usuwać konta klientów, 
-sprawdzać historię wynajmu danego pojazdu. Mechanik natomiast może wprowadzić 
+sprawdzać historię wynajmu danego pojazdu. Rejestracja pojazdu w systemie 
+wymaga wprowadzenia informacji o samochodzie takich jak: marka, model, kolor, 
+typ, numer rejestracyjny, opłata dobowa za wynajem. Mechanik natomiast może wprowadzić 
 auto w stan serwisowania, sprawdzić historię serwisowania danego pojazdu, 
 sprawdzić historię wynajmu danego pojazdu oraz zakończyć serwisowanie pojazdu. 
 Każda z wymienionych funkcjonalności wymaga wprowadzenia danych/zedytowania 
