@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:CarRentalSystem"
         mc:Ignorable="d"
-        Title="Car-Rental - Okno pracownika" Height="600" Width="800" MinWidth="800" MinHeight="600" ResizeMode="CanMinimize">
+        Title="Car-Rental - Okno pracownika" Height="600" Width="1200" ResizeMode="CanMinimize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -26,7 +26,7 @@
 
         <ScrollViewer Grid.Row="1" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <StackPanel>
-                <Expander x:Name="addNewCarExpander" HorizontalAlignment="Stretch" Header="Dodaj nowy samochód">
+                <Expander x:Name="addNewCarExpander" HorizontalAlignment="Stretch" Header="Dodaj nowy pojazd">
                     <Grid Background="LightGray">
                         <StackPanel Margin="10">
                             <TextBox x:Name="BrandTextBox" Text="Marka" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
@@ -37,6 +37,57 @@
                             <TextBox x:Name="CarTypeTextBox" Text="Typ samochodu" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
                             <TextBox x:Name="PricePerDayTextBox" Text="Cena za dzień" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
                             <Button Content="Dodaj samochód" Click="AddCarButton_Click" Margin="0,10" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White"/>
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+                <Expander x:Name="editCarExpander" HorizontalAlignment="Stretch" Header="Edytuj dane pojazdu">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10">
+                            <ComboBox x:Name="EditCarComboBox" Margin="0,5" SelectionChanged="EditCarComboBox_SelectionChanged"/>
+                            <Separator Margin="0,5"/>
+                            <TextBox x:Name="EditBrandTextBox" Text="Marka" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <TextBox x:Name="EditModelTextBox" Text="Model" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <TextBox x:Name="EditProductionYearTextBox" Text="Rok produkcji" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <TextBox x:Name="EditRegistrationNumberTextBox" Text="Numer rejestracyjny" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <TextBox x:Name="EditColorTextBox" Text="Kolor" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <TextBox x:Name="EditCarTypeTextBox" Text="Typ samochodu" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <TextBox x:Name="EditPricePerDayTextBox" Text="Cena za dzień" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <Button x:Name="EditCarButton" Content="Edytuj pojazd" Margin="0,5" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White" Click="EditCarButton_Click" IsEnabled="False"/>
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+                <Expander x:Name="removeCarExpander" HorizontalAlignment="Stretch" Header="Usuń pojazdu">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10">
+                            <ComboBox x:Name="RemoveCarComboBox" Margin="0,5" SelectionChanged="RemoveCarComboBox_SelectionChanged"/>
+                            <Button x:Name="RemoveCarButton" Content="Usuń pojazd" Margin="0,5" Background="#FF163EBB" BorderBrush="#FF163EBB" Click="RemoveCarButton_Click" Foreground="White" IsEnabled="False"/>
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+                <Expander x:Name="historyCarRentalExpander" HorizontalAlignment="Stretch" Header="Wyświetl historię rezerwacji">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10">
+                            <ComboBox x:Name="HistoryCarRentalComboBox" Margin="0,5" SelectionChanged="HistoryCarRentalComboBox_SelectionChanged"/>
+                            <DataGrid x:Name="HistoryCarRentalGrid" AutoGenerateColumns="False" IsEnabled="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Lp" Binding="{Binding Id}" Width="0.5*"/>
+                                    <DataGridTextColumn Header="Imię i nazwisko" Binding="{Binding CustomerName}" Width="1.5*"/>
+                                    <DataGridTextColumn Header="Email" Binding="{Binding CustomerEmail}" Width="1.5*"/>
+                                    <DataGridTextColumn Header="Telefon" Binding="{Binding CustomerPhone}" Width="*"/>
+                                    <DataGridTextColumn Header="Adres" Binding="{Binding CustomerAddress}" Width="2*"/>
+                                    <DataGridTextColumn Header="Start wynajmu" Binding="{Binding RentalDate}" Width="*"/>
+                                    <DataGridTextColumn Header="Koniec wynajmu" Binding="{Binding ReturnDate}" Width="*"/>
+                                    <DataGridTextColumn Header="Uwagi" Binding="{Binding Status}" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+                <Expander x:Name="cancelCarRentalExpander" HorizontalAlignment="Stretch" Header="Anuluj rezerwację pojazdu">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10">
+                            <ComboBox x:Name="CarComboBox" Margin="0,5" SelectionChanged="CarComboBox_SelectionChanged"/>
+                            <Button x:Name="CarButton" Content="Anuluj rezerwację" Click="CancelReservationButton_Click" Margin="0,5" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White" IsEnabled="False"/>
                         </StackPanel>
                     </Grid>
                 </Expander>
@@ -59,8 +110,77 @@
                         </StackPanel>
                     </Grid>
                 </Expander>
-                <ComboBox x:Name="CarComboBox" Margin="0,5" SelectedIndex="0"/>
-                <Button Content="Anuluj rezerwację" Click="CancelReservationButton_Click" Margin="0,5" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White"/>
+                <Expander x:Name="editEmployeeExpander" HorizontalAlignment="Stretch" Header="Edytuj dane pracownika">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10">
+                            <ComboBox x:Name="EditEmployeeComboBox" Margin="0,5"  SelectionChanged="EditEmployeeComboBox_SelectionChanged"/>
+                            <Separator Margin="0,5"/>
+                            <TextBox x:Name="EditEmailTextBox" Text="Email" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <TextBox x:Name="EditFirstNameTextBox" Text="Imię" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <TextBox x:Name="EditLastNameTextBox" Text="Nazwisko" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <ComboBox x:Name="EditPositionComboBox" Margin="0,5" IsEnabled="False">
+                                <ComboBoxItem Content="Manager"/>
+                                <ComboBoxItem Content="Mechanik"/>
+                            </ComboBox>
+                            <TextBox x:Name="EditAddressTextBox" Text="Adres" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <TextBox x:Name="EditPhoneTextBox" Text="Telefon" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <DatePicker x:Name="EditBirthDatePicker" Margin="0,5" DisplayDateEnd="{x:Static sys:DateTime.Now}" IsEnabled="False"/>
+                            <Button x:Name="EditEmployeeButton" Content="Edytuj dane konta" Margin="0,5" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White" IsEnabled="False" Click="EditEmployeeButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+                <Expander x:Name="removeEmployeeExpander" HorizontalAlignment="Stretch" Header="Usuń konto pracownika">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10">
+                            <ComboBox x:Name="RemoveEmployeeComboBox" Margin="0,5"  SelectionChanged="RemoveEmployeeComboBox_SelectionChanged"/>
+                            <Button x:Name="RemoveEmployeeButton" Content="Usuń konto" Margin="0,5" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White" IsEnabled="False" Click="RemoveEmployeeButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+                <Expander x:Name="removeCustomerExpander" HorizontalAlignment="Stretch" Header="Usuń konto klienta">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10">
+                            <TextBox x:Name="RemoveEmailTextBox" Text="Email" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <Button x:Name="RemoveCustomerButton" Content="Usuń konto" Margin="0,5" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White" Click="RemoveCustomerButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+                <Expander x:Name="startServiceExpander" HorizontalAlignment="Stretch" Header="Rozpocznij serwisowanie pojazdu">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10">
+                            <ComboBox x:Name="StartServiceComboBox" Margin="0,5" SelectionChanged="StartServiceComboBox_SelectionChanged"/>
+                            <Button x:Name="StartServiceButton" Content="Rozpocznij serwisowanie" Margin="0,5" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White" IsEnabled="False" Click="StartServiceButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+                <Expander x:Name="stopServiceExpander" HorizontalAlignment="Stretch" Header="Zakończ serwisowanie pojazdu">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10">
+                            <ComboBox x:Name="StopServiceComboBox" Margin="0,5" SelectionChanged="StopServiceComboBox_SelectionChanged"/>
+                            <TextBox x:Name="CostTextBox" Text="Koszt" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <TextBox x:Name="InfoTextBox" Text="Uwagi" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="False"/>
+                            <Button x:Name="StopServiceButton" Content="Zakończ serwisowanie" Margin="0,5" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White" IsEnabled="False" Click="StopServiceButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+                <Expander x:Name="historyCarServiceExpander" HorizontalAlignment="Stretch" Header="Wyświetl historię serwisowania">
+                    <Grid Background="LightGray">
+                        <StackPanel Margin="10">
+                            <ComboBox x:Name="HistoryCarServiceComboBox" Margin="0,5" SelectionChanged="HistoryCarServiceComboBox_SelectionChanged"/>
+                            <DataGrid x:Name="HistoryCarServiceGrid" AutoGenerateColumns="False" IsEnabled="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Lp" Binding="{Binding Id}" Width="0.5*"/>
+                                    <DataGridTextColumn Header="Imię i nazwisko" Binding="{Binding EmployeeName}" Width="2*"/>
+                                    <DataGridTextColumn Header="Email" Binding="{Binding EmployeeEmail}" Width="2*"/>
+                                    <DataGridTextColumn Header="Start serwisowania" Binding="{Binding StartDate}" Width="*"/>
+                                    <DataGridTextColumn Header="Koniec serwisowania" Binding="{Binding EndDate}" Width="*"/>
+                                    <DataGridTextColumn Header="Koszt" Binding="{Binding Cost}" Width="0.75*"/>
+                                    <DataGridTextColumn Header="Uwagi" Binding="{Binding Status}" Width="2*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Grid>
+                </Expander>
             </StackPanel>
         </ScrollViewer>
     </Grid>

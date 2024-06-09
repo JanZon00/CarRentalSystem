@@ -67,7 +67,7 @@ namespace CarRentalSystem
                 }
                 else
                 {
-                    DateTime birthDate = BirthDatePicker.SelectedDate.HasValue ? BirthDatePicker.SelectedDate.Value : DateTime.MinValue;
+                    DateTime birthDate = BirthDatePicker.SelectedDate ?? DateTime.MinValue;
 
                     string[] data = new string[]
                     {
@@ -99,8 +99,7 @@ namespace CarRentalSystem
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox textBox = sender as TextBox;
-            if (textBox != null && textBox.Text == GetPlaceholderText(textBox.Name))
+            if (sender is TextBox textBox && textBox.Text == GetPlaceholderText(textBox.Name))
             {
                 textBox.Text = "";
                 textBox.Foreground = new SolidColorBrush(SystemColors.ControlTextColor);
@@ -109,8 +108,7 @@ namespace CarRentalSystem
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox textBox = sender as TextBox;
-            if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
+            if (sender is TextBox textBox && string.IsNullOrWhiteSpace(textBox.Text))
             {
                 textBox.Text = GetPlaceholderText(textBox.Name);
                 textBox.Foreground = new SolidColorBrush(SystemColors.GrayTextColor);
@@ -119,8 +117,7 @@ namespace CarRentalSystem
 
         private void PasswordBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            PasswordBox passwordBox = sender as PasswordBox;
-            if (passwordBox != null && passwordBox.Password == GetPlaceholderText(passwordBox.Name))
+            if (sender is PasswordBox passwordBox && passwordBox.Password == GetPlaceholderText(passwordBox.Name))
             {
                 passwordBox.Password = "";
                 passwordBox.Foreground = new SolidColorBrush(SystemColors.ControlTextColor);
@@ -129,8 +126,7 @@ namespace CarRentalSystem
 
         private void PasswordBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            PasswordBox passwordBox = sender as PasswordBox;
-            if (passwordBox != null && string.IsNullOrWhiteSpace(passwordBox.Password))
+            if (sender is PasswordBox passwordBox && string.IsNullOrWhiteSpace(passwordBox.Password))
             {
                 passwordBox.Password = GetPlaceholderText(passwordBox.Name);
                 passwordBox.Foreground = new SolidColorBrush(SystemColors.GrayTextColor);
@@ -176,6 +172,14 @@ namespace CarRentalSystem
             if (((TextBox)sender).Text.Length > 5)
             {
                 ((TextBox)sender).Text = ((TextBox)sender).Text.Substring(0, 5);
+            }
+        }
+
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                LoginButton_Click(null, null);
             }
         }
 

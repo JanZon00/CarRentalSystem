@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:CarRentalSystem"
         mc:Ignorable="d"
-        Title="Car-Rental - Okno logowania" Height="600" Width="800" MinWidth="800" MinHeight="600" ResizeMode="CanMinimize">
+        Title="Car-Rental - Okno logowania" Height="600" Width="1200" ResizeMode="CanMinimize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -24,7 +24,7 @@
                 <StackPanel Margin="10">
                     <Label Grid.Column="0" x:Name="LoginLabel" Content="Zaloguj się" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top" FontSize="22"/>
                     <TextBox x:Name="EmailTextBox" Text="Email" Margin="0,50,0,0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
-                    <PasswordBox x:Name="PasswordBox" Password="Password" Margin="0,5" GotFocus="PasswordBox_GotFocus" LostFocus="PasswordBox_LostFocus"/>
+                    <PasswordBox x:Name="PasswordBox" Password="Password" Margin="0,5" GotFocus="PasswordBox_GotFocus" LostFocus="PasswordBox_LostFocus" KeyDown="OnKeyDownHandler"/>
                     <Button x:Name="LoginButton" Content="Zaloguj" Margin="0,10" Background="#FF163EBB" BorderBrush="#FF163EBB" Foreground="White" Click="LoginButton_Click"/>
                 </StackPanel>
             </Grid>

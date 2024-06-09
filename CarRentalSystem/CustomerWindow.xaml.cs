@@ -23,13 +23,17 @@ namespace CarRentalSystem
             string[][] rentedCars = dbQueries.GetRentedCars(App.UserId);
             if (rentedCars.Length == 0)
             {
-                StackPanel emptyPanel = new StackPanel();
-                emptyPanel.Orientation = Orientation.Horizontal;
-                emptyPanel.Margin = new Thickness(0, 10, 0, 0);
-                Label label = new Label();
-                label.Content = "Nie wypożyczono żadnego auta.\n";
-                label.Foreground = new SolidColorBrush(Colors.Black);
-                label.Margin = new Thickness(10, 0, 0, 0);
+                StackPanel emptyPanel = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    Margin = new Thickness(0, 10, 0, 0)
+                };
+                Label label = new Label
+                {
+                    Content = "Nie wypożyczono żadnego pojazdu.\n",
+                    Foreground = new SolidColorBrush(Colors.Black),
+                    Margin = new Thickness(10, 0, 0, 0)
+                };
                 emptyPanel.Children.Add(label);
                 RentedCarsStackPanel.Children.Add(emptyPanel);
             }
@@ -37,60 +41,157 @@ namespace CarRentalSystem
             {
                 for (int i = 0; i < rentedCars.Length; i++)
                 {
-                    StackPanel carPanel = AddCarToUI(rentedCars[i], i + 1);
+                    Grid carPanel = AddCarToUI(rentedCars[i], i + 1);
                     RentedCarsStackPanel.Children.Add(carPanel);
                 }
             }
 
-            string[][] cars = dbQueries.GetAllCars();
-            for (int i = 0; i < cars.Length; i++)
+            string[][] cars = dbQueries.GetAvailableCars();
+            if (cars.Length == 0)
             {
-                StackPanel carPanel = AddCarToUI(cars[i], i + 1);
-                CarsStackPanel.Children.Add(carPanel);
+                StackPanel emptyPanel = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    Margin = new Thickness(0, 10, 0, 0)
+                };
+                Label label = new Label
+                {
+                    Content = "Żaden pojazd nie jest obecnie dostępny.\n",
+                    Foreground = new SolidColorBrush(Colors.Black),
+                    Margin = new Thickness(10, 0, 0, 0)
+                };
+                emptyPanel.Children.Add(label);
+                CarsStackPanel.Children.Add(emptyPanel);
+            }
+            else
+            {
+                for (int i = 0; i < cars.Length; i++)
+                {
+                    Grid carPanel = AddCarToUI(cars[i], i + 1, true);
+                    CarsStackPanel.Children.Add(carPanel);
+                }
+            }
+            
+            string[][] unavailableCars = dbQueries.GetUnavailableCars();
+            if (unavailableCars.Length == 0)
+            {
+                StackPanel emptyPanel = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    Margin = new Thickness(0, 10, 0, 0)
+                };
+                Label label = new Label
+                {
+                    Content = "Wszystkie pojazdy są dostępne.\n",
+                    Foreground = new SolidColorBrush(Colors.Black),
+                    Margin = new Thickness(10, 0, 0, 0)
+                };
+                emptyPanel.Children.Add(label);
+                UnavailableCarsStackPanel.Children.Add(emptyPanel);
+            }
+            else
+            {
+                for (int i = 0; i < unavailableCars.Length; i++)
+                {
+                    Grid carPanel = AddCarToUI(unavailableCars[i], i + 1);
+                    UnavailableCarsStackPanel.Children.Add(carPanel);
+                }
             }
         }
 
-        private StackPanel AddCarToUI(string[] car, int index)
+        private Grid AddCarToUI(string[] car, int index, bool button = false)
         {
-            StackPanel carPanel = new StackPanel
+            Grid carGrid = new Grid
+            {
+                Margin = new Thickness(5),
+                Background = new SolidColorBrush(Colors.LightGray)
+            };
+
+            ColumnDefinition column1 = new ColumnDefinition
+            {
+                Width = new GridLength(1, GridUnitType.Star)
+            };
+
+            ColumnDefinition column2 = new ColumnDefinition
+            {
+                Width = GridLength.Auto
+            };
+
+            carGrid.ColumnDefinitions.Add(column1);
+            carGrid.ColumnDefinitions.Add(column2);
+
+            StackPanel carPanel1 = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
-                Margin = new Thickness(0, 10, 0, 10),
-                Background = new SolidColorBrush(Colors.LightGray)
+                Margin = new Thickness(10),
+                Background = new SolidColorBrush(Colors.Transparent),
+                HorizontalAlignment = HorizontalAlignment.Left
+            };
+            StackPanel carPanel2 = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Margin = new Thickness(10),
+                Background = new SolidColorBrush(Colors.Transparent),
+                HorizontalAlignment = HorizontalAlignment.Right
             };
 
             Label indexLabel = new Label
             {
                 Content = index.ToString() + ".",
                 Foreground = new SolidColorBrush(Colors.Black),
-                Margin = new Thickness(10),
-                FontSize = 14,
+                Margin = new Thickness(6),
+                FontSize = 12,
                 FontWeight = FontWeights.Bold
             };
-            carPanel.Children.Add(indexLabel);
+            carPanel1.Children.Add(indexLabel);
 
-            foreach (string attribute in car)
+            for (int i = 1; i < car.Length; i++)
             {
                 Label label = new Label
                 {
-                    Content = attribute,
+                    Content = car[i],
                     Foreground = new SolidColorBrush(Colors.Black),
-                    Margin = new Thickness(10),
-                    FontSize = 14,
+                    Margin = new Thickness(6),
+                    FontSize = 12,
                     FontWeight = FontWeights.Bold
                 };
-                carPanel.Children.Add(label);
+                carPanel1.Children.Add(label);
             }
+
+            if (button)
+            {
+                Button rentButton = new Button
+                {
+                    Content = "Wynajmij",
+                    Tag = car[0],
+                    Margin = new Thickness(6),
+                    FontSize = 12,
+                    FontWeight = FontWeights.Bold,
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    Width = 100,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF163EBB")),
+                    BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF163EBB")),
+                    Foreground = new SolidColorBrush(Colors.White)
+                };
+                rentButton.Click += RentButton_Click;
+                carPanel2.Children.Add(rentButton);
+            }
+
+            Grid.SetColumn(carPanel1, 0);
+            Grid.SetColumn(carPanel2, 1);
+
+            carGrid.Children.Add(carPanel1);
+            carGrid.Children.Add(carPanel2);
 
             Border carBorder = new Border
             {
                 BorderThickness = new Thickness(2),
                 BorderBrush = new SolidColorBrush(Colors.Black),
-                Child = carPanel,
+                Child = carGrid,
                 Margin = new Thickness(5)
             };
 
-            StackPanel outerPanel = new StackPanel();
+            Grid outerPanel = new Grid();
             outerPanel.Children.Add(carBorder);
 
             return outerPanel;
@@ -98,28 +199,27 @@ namespace CarRentalSystem
 
         private void RentButton_Click(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(CarNumberTextBox.Text, out int carId) && int.TryParse(RentalPeriodTextBox.Text, out int rentalDays))
+            Button clickedButton = (Button)sender;
+            string tagValue = clickedButton.Tag.ToString();
+            if (int.TryParse(tagValue, out int id))
             {
-                DateTime returnDate = DateTime.Now.AddDays(rentalDays);
-
-                DatabaseQueries dbQueries = new DatabaseQueries();
-                bool success = dbQueries.RentCar(App.UserId, carId, returnDate);
-
-                if (success)
-                {
-                    MessageBox.Show("Samochód został wypożyczony!");
-                    CarsStackPanel.Children.Clear();
-                    RentedCarsStackPanel.Children.Clear();
-                    LoadCars();
-                }
-                else
-                {
-                    MessageBox.Show("Wystąpił błąd podczas wypożyczania samochodu.");
-                }
+                RentalDatePicker rdp = new RentalDatePicker(this, id);
+                rdp.Show();
             }
-            else
+        }
+
+        public void RentHandler(int carId, DateTime returnDate)
+        {
+            DatabaseQueries dbQueries = new DatabaseQueries();
+            bool success = dbQueries.RentCar(App.UserId, carId, returnDate);
+
+            if (success)
             {
-                MessageBox.Show("Podaj poprawne wartości dla numeru samochodu i okresu wynajęcia.");
+                MessageBox.Show("Samochód został wypożyczony!");
+                UnavailableCarsStackPanel.Children.Clear();
+                CarsStackPanel.Children.Clear();
+                RentedCarsStackPanel.Children.Clear();
+                LoadCars();
             }
         }
 
