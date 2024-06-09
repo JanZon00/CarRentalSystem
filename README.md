@@ -1,12 +1,9 @@
 # Car Rental System
 
 
-Projekt zaliczeniowy
-
-Zaawansowane Interfejsy Graficzne
-
-Cezary Zięba, Jan Zoń
-
+Projekt zaliczeniowy  
+Zaawansowane Interfejsy Graficzne  
+Cezary Zięba, Jan Zoń  
 2024
 
 
@@ -43,7 +40,7 @@ typ, numer rejestracyjny, opłata dobowa za wynajem. Mechanik natomiast może wp
 auto w stan serwisowania, sprawdzić historię serwisowania danego pojazdu, 
 sprawdzić historię wynajmu danego pojazdu oraz zakończyć serwisowanie pojazdu. 
 Każda z wymienionych funkcjonalności wymaga wprowadzenia danych/zedytowania 
-danych w odpowiednich polach i potwierdzenia operacji przyciskiem lub też  
+danych w odpowiednich polach i potwierdzenia operacji przyciskiem lub też 
 wybrania z rozwijanej listy interesującego elementu.
 
 
